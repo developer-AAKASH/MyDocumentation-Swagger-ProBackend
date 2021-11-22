@@ -1,0 +1,37 @@
+openapi: "3.0.0"
+info: 
+  title: Learn express and swagger !!
+  description: A Course segment about writing docs
+  version: 1.1.0
+  contact:
+    email: 201912082@daiict.ac.in
+    url: "https://aakash@KsEmpire.com"
+
+# servers:
+#   - url: "https://localhost:4000/api/v1"
+#     description: for localhost - secure.
+#   - url: "http://localhost:4000/api/v1"
+#     description: for localhost - regular.
+
+servers:
+  - url: "{protocol}://localhost:4000/api/{version}"
+    description: for localhost with diffternt version and all that !!
+    variables:
+      version:
+        enum:
+          - v1
+          - v2
+      protocol:
+        enum:
+          - http
+          - https
+  
+components:
+  securitySchemes:
+    cookieAuth:
+      type: apiKey
+      in: cookie
+      name: token
+    BearerAuth:
+      type: http
+      scheme: bearer
