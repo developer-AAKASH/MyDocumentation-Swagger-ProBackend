@@ -21,11 +21,13 @@ servers:
         enum:
           - v1
           - v2
+        default: v1
       protocol:
         enum:
           - http
           - https
-  
+        default: http
+          
 components:
   securitySchemes:
     cookieAuth:
@@ -35,3 +37,245 @@ components:
     BearerAuth:
       type: http
       scheme: bearer
+
+paths:
+  /aakash:
+    get:
+      tags:
+        - String
+      summary: Returns a single course/object from Website.
+      responses:
+        200:
+          description: All good and Success.
+          content:
+            application/json:
+              type: string
+              example: "mystring"
+        400:
+          description: Bad request.
+        500:
+          description: Internal server error.
+  /aakashobject:
+    get:
+      tags:
+        - Object
+      summary: Returns a greet message from Website.
+      responses:
+        200:
+          description: All good and Success.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                  name:
+                    type: string
+                  price:
+                    type: number
+                  exampleOfObjectInideObject:
+                    type: object
+                    properties:
+                      price:
+                        type: number
+        400:
+          description: Bad request.
+          content:
+            string:
+              schema:
+                type: string
+
+        500:
+          description: Internal server error.
+
+  /aakashArray:
+    get:
+      tags:
+        - Array
+      summary: Returns a all courses/array from Website.
+      responses:
+        200:
+          description: All good and Success.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: string
+                    name:
+                      type: string
+                    price:
+                      type: number
+                    exampleOfObjectInideObject:
+                      type: object
+                      properties:
+                        price:
+                          type: number
+        400:
+          description: Bad request.
+          content:
+            string:
+              schema:
+                type: string
+
+        500:
+          description: Internal server error.
+  /mycourse/{courseId}:
+    get:
+      tags:
+        - String
+      summary: Returns a courses/array from Website based on courseId.
+      parameters:
+        - name: courseId
+          in: path
+          required: true
+          default: 102
+          schema:
+            type: string
+      responses:
+        200:
+          description: All good and Success.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                  name:
+                    type: string
+                  price:
+                    type: number
+                  exampleOfObjectInideObject:
+                    type: object
+                    properties:
+                      price:
+                        type: number
+        400:
+          description: Bad request.
+          content:
+            string:
+              schema:
+                type: string
+
+        500:
+          description: Internal server error.
+  /add:
+    post:
+      tags:
+        - String
+      summary: Adds a new course to existing courses.
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                id:
+                  type: string
+                name:
+                  type: string
+                price:
+                  type: number
+      responses:
+        200:
+          description: All good and Success.
+          content:
+            application/json:
+              schema:
+                type: boolean
+        400:
+          description: Bad request.
+          content:
+            string:
+              schema:
+                type: string
+
+        500:
+          description: Internal server error.
+  /coursequery:
+    get:
+      tags:
+        - String
+      summary: Fetching Queries in URLss.
+      parameters:
+        - name: location
+          in: query
+          required: true
+          schema:
+            type: string
+            enum: [
+              Delhi,
+              Rajasthan,
+              Ahmedabad,
+            ]
+        - name: device
+          in: query
+          required: true
+          schema:
+            type: string
+            enum: [
+              Web,
+              Mobile,
+            ]
+      responses:
+        200:
+          description: All good and Success.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  location:
+                    type: string
+                  device:
+                    type: string
+        400:
+          description: Bad request.
+          content:
+            string:
+              schema:
+                type: string
+
+        500:
+          description: Internal server error.
+  /imagefile:
+    post:
+      tags:
+        - File
+      summary: Uploading File.
+      parameters:
+        - in: header
+          name: auth
+          
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                file:
+                  type: string
+                  format: binary
+      responses:
+        200:
+          description: All good and Success.
+        400:
+          description: Bad request.
+          content:
+            string:
+              schema:
+                type: string
+
+        500:
+          description: Internal server error.
+  
